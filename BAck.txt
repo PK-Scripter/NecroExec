@@ -1,0 +1,62 @@
+package mysource;
+
+import java.sql.*;
+
+public class Manager {
+    private Connection con = null;
+
+    public Manager(Connection con) {
+        this.con = con;
+    }
+
+    public ResultSet Get(String State) throws SQLException {
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(State);
+        System.out.println("\n Manager » ExecutedQuery " + State);
+        return rs;
+    }
+
+    public void Set(String State) throws SQLException {
+        Statement st = con.createStatement();
+        st.executeUpdate(State);
+        System.out.println(" Manager » ExecutedUpdate " + State);
+    }
+
+    public void Delete(String State) throws SQLException {
+        Statement st = con.createStatement();
+        st.execute(State);
+        System.out.println(" Manager » Execute " + State);
+    }
+
+    /* App.java
+     *
+     * import mysource.*;
+     * import java.sql.*;
+     * 
+     * public class App {
+     * public static void main(String[] args) throws Exception {
+     * ObterLigacao obter = new ObterLigacao();
+     * Connection con = obter.OL();
+     * 
+     * Manager man = new Manager(con);
+     * 
+     * ResultSet rs = man.Get("SELECT * FROM `clientes`");
+     * while (rs.next()){
+     * String Nome = rs.getString("NomeCliente");
+     * String Endereco = rs.getString("Endereco");
+     * String Telefone = rs.getString("Telefone");
+     * 
+     * System.out.printf("\n Nome: %s \n Endereco: %s \n Telefone: %s \n", Nome,
+     * Endereco, Telefone);
+     * man.Set("UPDATE `clientes` SET NomeCliente = 'Anita' WHERE CodCliente = 2;");
+     * }
+     * 
+     * man.Delete("DELETE FROM `clientes` WHERE CodCliente = 1");
+     * man.Delete("DROP TABLE `clientes`");
+     * 
+     * obter.Fechar(con);
+     * }
+     * }
+     * 
+     */
+}
